@@ -8,51 +8,57 @@ function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("mango");
 
-  const handleSearch = (e) => {
+  const updateSearch = (e) => {
     setSearch(e.target.value);
-    console.log(search);
-    getRecipes();
+    // console.log(search);
   };
 
-  /*   useEffect(() => {
+  const getSearch = (e) => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
+  };
+
+  useEffect(() => {
     getRecipes();
-  }, []); */
+    // eslint-disable-next-line
+  }, [query]);
 
-  const getRecipes = async (e) => {
-    e && e.preventDefault();
-    console.log(`running`);
+  const getRecipes = async () => {
     const response = await fetch(
-      `https://api.edamam.com/search?q=${search}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free`
-
-      // `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free`
+      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free`
     );
     const data = await response.json();
     setRecipes(data.hits);
-    console.log(data.hits);
+    // console.log(data.hits);
   };
 
   return (
     <>
-      <div className="App">
-        <form className="p-2">
+      <div className="App py-2">
+        <form onSubmit={getSearch} className="flex justify-center">
           <input
             type="search"
-            onChange={handleSearch}
-            className="border-2 border-black"
+            onChange={updateSearch}
+            value={search}
+            className="border-2 border-black placeholder:text-center placeholder:italic"
+            placeholder="Enter dish name"
           />
 
-          <button className="search-button" type="submit" onClick={getRecipes}>
+          <button className="search-button" type="submit">
             Search
           </button>
         </form>
-        <div className="flex justify-between m-4">
+        <div className="recipes flex">
           {recipes.map((recipe) => (
             <Recipe
               key={recipe.recipe.label}
               image={recipe.recipe.image}
               title={recipe.recipe.label}
               calories={recipe.recipe.calories}
+              ingredients={recipe.recipe.ingredients}
             />
           ))}
         </div>

@@ -1,0 +1,27 @@
+.recipe {
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgb(71, 71, 71);
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: white;
+  align-items: center;
+  width: 30%;
+  max-width: 30%;
+  min-width: 350px;
+  padding: 10px;
+}
+
+@media screen and (max-width: 450px) {
+  .recipe {
+    min-width: 70%;
+  }
+}
+
+.image {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  margin: 10px 10px 10px 10px;
+}
