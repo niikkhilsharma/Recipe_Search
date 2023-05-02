@@ -43,7 +43,7 @@ function App() {
             type="search"
             onChange={updateSearch}
             value={search}
-            className="border-2 border-black placeholder:text-center placeholder:italic"
+            className="border-2 p-1 border-black placeholder:text-center placeholder:italic"
             placeholder="Enter dish name"
           />
 
